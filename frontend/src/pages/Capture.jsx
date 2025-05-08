@@ -221,6 +221,7 @@ export default function EnhancedPotholeReporter() {
                 success: (data)=>{
                   status = true
                   dt = data
+                  alert(JSON.stringify(dt))
                   resolve()
                   return (`Image processed successfully`)
                 },

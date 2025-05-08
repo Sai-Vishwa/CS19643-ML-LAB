@@ -71,9 +71,9 @@ export default function PotholeMapDashboard() {
     });
   };
 
-  // Initialize map
+  // Initialize map only when active view is map
   useEffect(() => {
-    if (!mapContainerRef.current) return;
+    if (!mapContainerRef.current || activeView !== 'map') return;
 
     loadLeafletScripts()
       .then(() => {
@@ -116,20 +116,20 @@ export default function PotholeMapDashboard() {
         toast.error("Failed to load map: " + err.message);
       });
       
-    // Cleanup on unmount
+    // Cleanup when switching to list view or unmounting
     return () => {
-      if (mapObject) {
+      if (mapObject && activeView !== 'map') {
         mapObject.remove();
         setMapObject(null);
         setMarkerLayer(null);
         setMapLoaded(false);
       }
     };
-  }, [mapContainerRef.current]);
+  }, [mapContainerRef.current, activeView]);
 
-  // Update map when dark mode changes
+  // Update map when dark mode changes (only if map is active)
   useEffect(() => {
-    if (mapObject && window.L) {
+    if (mapObject && window.L && activeView === 'map') {
       // Remove the current tile layer
       mapObject.eachLayer(layer => {
         if (layer instanceof window.L.TileLayer) {
@@ -150,11 +150,11 @@ export default function PotholeMapDashboard() {
         }
       ).addTo(mapObject);
     }
-  }, [darkMode, mapObject]);
+  }, [darkMode, mapObject, activeView]);
 
-  // Update markers when map and data are ready
+  // Update markers when map and data are ready (only if map view is active)
   useEffect(() => {
-    if (mapLoaded && markerLayer && window.L) {
+    if (mapLoaded && markerLayer && window.L && activeView === 'map') {
       // Clear existing markers
       markerLayer.clearLayers();
       
@@ -216,7 +216,7 @@ export default function PotholeMapDashboard() {
         });
       }
     }
-  }, [mapLoaded, markerLayer, potholeData, darkMode, heatmapActive]);
+  }, [mapLoaded, markerLayer, potholeData, darkMode, heatmapActive, activeView]);
   
   // Add custom CSS for tooltips when dark mode changes
   useEffect(() => {
@@ -335,7 +335,7 @@ export default function PotholeMapDashboard() {
         <main className="flex-1 overflow-hidden">
           {activeView === 'map' ? (
             <div className="relative h-full">
-              {/* Map container */}
+              {/* Map container - only render when in map view */}
               <div ref={mapContainerRef} className="w-full h-full z-0"></div>
               
               {/* Map Controls Overlay */}
