@@ -5,14 +5,19 @@ import os
 import sys
 import random
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Suppress TensorFlow logging
+import tensorflow as tf
+tf.get_logger().setLevel('ERROR')  # Extra step to silence additional logs
+
+
 # Load model
 model = load_model("C:/Users/SaivishwaramRamkumar/Desktop/pothole.ai/python/pothole_detector_model.h5")
 
 # Class names
 class_names = ['normal', 'pothole', 'random']  # Update as per your dataset folders
 
-def predict_image(img_path):
-    img = cv2.imread(img_path)
+def predict_image():
+    img = cv2.imread("C:/Users/SaivishwaramRamkumar/Desktop/pothole.ai/backend/complaint/temp_image.jpg")
     if img is None:
         print("Error: Could not read image")
         return
@@ -31,7 +36,4 @@ def predict_image(img_path):
 
 # Entry point
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python predict.py <image_path>")
-    else:
-        predict_image(sys.argv[1])
+       predict_image()

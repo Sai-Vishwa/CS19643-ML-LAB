@@ -24,20 +24,16 @@ async function analyse(req, res) {
   fs.writeFileSync(tempImagePath, buffer);  // Save the buffer as a temporary image file
 
   // Run Python model (pass the temporary image path to the Python script)
-  exec(`python ../../python/train.py "${tempImagePath}"`, (err, stdout, stderr) => {
+  exec(`python C:/Users/SaivishwaramRamkumar/Desktop/pothole.ai/python/test.py`, (err, stdout, stderr) => {
     if (err) {
       console.error('Python error:', stderr);
       return res.status(500).json({ error: 'Error in prediction' });
     }
 
     const result = stdout.trim();
+    console.log(result)
     res.status(200).json({
-      message: 'Image and location received',
       prediction: result,
-      latitude,
-      longitude,
-      accuracy,
-      timestamp
     });
   });
 }

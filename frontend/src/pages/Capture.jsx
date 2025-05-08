@@ -220,8 +220,13 @@ export default function EnhancedPotholeReporter() {
                 loading: "Analysing the image...",
                 success: (data)=>{
                   status = true
-                  dt = data
-                  alert(JSON.stringify(dt))
+                  dt = JSON.stringify(data.prediction).split("n")
+                  let finalLine = dt[dt.length - 1];
+                  if(finalLine.startsWith("ormal")){
+                    finalLine = "n"+finalLine
+                  }
+
+                  alert(finalLine)
                   resolve()
                   return (`Image processed successfully`)
                 },
