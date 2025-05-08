@@ -16,4 +16,4 @@ async function analyse(req,res) {
 
 module.exports = {
     analyse
-}
+}                         
