@@ -20,17 +20,18 @@ export default function PotholeMapDashboard() {
 
   // Sample pothole data - in a real app this would come from an API
   const potholeData = [
-    { id: 1, lat: 40.7128, lng: -74.006, count: 5, severity: 'high', reportDate: '2025-04-15' },
-    { id: 2, lat: 40.7138, lng: -74.008, count: 3, severity: 'medium', reportDate: '2025-04-14' },
-    { id: 3, lat: 40.7118, lng: -74.010, count: 7, severity: 'high', reportDate: '2025-04-12' },
-    { id: 4, lat: 40.7108, lng: -74.004, count: 2, severity: 'low', reportDate: '2025-04-10' },
-    { id: 5, lat: 40.7148, lng: -74.012, count: 4, severity: 'medium', reportDate: '2025-04-08' },
-    { id: 6, lat: 40.7158, lng: -74.007, count: 6, severity: 'high', reportDate: '2025-04-05' },
-    { id: 7, lat: 40.7098, lng: -74.005, count: 1, severity: 'low', reportDate: '2025-04-02' },
-    { id: 8, lat: 40.7078, lng: -74.009, count: 8, severity: 'high', reportDate: '2025-03-30' },
-    { id: 9, lat: 40.7168, lng: -74.011, count: 3, severity: 'medium', reportDate: '2025-03-25' },
-    { id: 10, lat: 40.7188, lng: -74.003, count: 5, severity: 'high', reportDate: '2025-03-20' }
+    { id: 1, lat: 13.0066, lng: 80.0067, count: 5, severity: 'high', reportDate: '2025-04-15' }, // Rajalakshmi Engineering College
+    { id: 2, lat: 13.0827, lng: 80.2707, count: 3, severity: 'medium', reportDate: '2025-04-14' }, // Chennai Central
+    { id: 3, lat: 13.0674, lng: 80.2376, count: 7, severity: 'high', reportDate: '2025-04-12' }, // T. Nagar
+    { id: 4, lat: 13.0358, lng: 80.2083, count: 2, severity: 'low', reportDate: '2025-04-10' }, // Guindy
+    { id: 5, lat: 13.0480, lng: 80.2619, count: 4, severity: 'medium', reportDate: '2025-04-08' }, // Egmore
+    { id: 6, lat: 13.0987, lng: 80.2936, count: 6, severity: 'high', reportDate: '2025-04-05' }, // Anna Nagar
+    { id: 7, lat: 12.9716, lng: 80.2210, count: 1, severity: 'low', reportDate: '2025-04-02' }, // Velachery
+    { id: 8, lat: 13.0820, lng: 80.2707, count: 8, severity: 'high', reportDate: '2025-03-30' }, // Parrys Corner
+    { id: 9, lat: 13.0033, lng: 80.2518, count: 3, severity: 'medium', reportDate: '2025-03-25' }, // Saidapet
+    { id: 10, lat: 13.0321, lng: 80.2652, count: 5, severity: 'high', reportDate: '2025-03-20' } // Mylapore
   ];
+  
 
   // Dark mode effect
   useEffect(() => {
@@ -80,7 +81,7 @@ export default function PotholeMapDashboard() {
         // Create map if Leaflet is loaded and map doesn't exist yet
         if (window.L && !mapObject && mapContainerRef.current) {
           // Initialize the map
-          const map = window.L.map(mapContainerRef.current).setView([40.7128, -74.006], mapZoom);
+          const map = window.L.map(mapContainerRef.current).setView([13.0066,80.0067], mapZoom);
           
           // Add the base tile layer
           const tileLayer = window.L.tileLayer(

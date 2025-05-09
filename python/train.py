@@ -11,7 +11,7 @@ def load_images(directory, img_size=(128, 128)):
     y = []
     class_names = os.listdir(directory)
     class_names = [name for name in class_names if os.path.isdir(os.path.join(directory, name))]
-    class_names.sort()  # ensure consistent ordering
+    class_names.sort() 
     for idx, class_name in enumerate(class_names):
         class_path = os.path.join(directory, class_name)
         for file in os.listdir(class_path):
@@ -39,18 +39,14 @@ def build_model(input_shape, num_classes):
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     return model
 
-# Load and preprocess data
 X, y, class_names = load_images("dataset/", img_size=(128, 128))
 y = to_categorical(y, num_classes=len(class_names))
 
-# Split into train/val sets
 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Build and train model
 model = build_model((128, 128, 3), num_classes=y.shape[1])
 model.fit(X_train, y_train, epochs=10, validation_data=(X_val, y_val), batch_size=32)
 
-# Save model
 model.save("pothole_detector_model.h5")
 
 print(f"Training complete. Classes: {class_names}")
